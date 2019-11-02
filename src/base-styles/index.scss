@@ -4,8 +4,9 @@
 @import "../components/header/header";
 @import "../components/main/main";
 @import "../components/search-filter/search-filter";
-@import "../components/record/record";
+@import "../components/record/components/record-list-item/record-list-item";
 @import "../components/add-button/add-button";
+@import "../components/record/components/record-card/record-card";
 
 html {
   box-sizing: border-box;

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import { RecordCardContext } from "../../../../context";
 
 interface RecordProps {
   record: {
@@ -6,9 +7,13 @@ interface RecordProps {
   };
 }
 
-function Record({ record }: RecordProps) {
+function RecordListItem({ record }: RecordProps) {
+  const { setShowRecordCard } = useContext(RecordCardContext);
   return (
-    <div className="record-container">
+    <div
+      className="record-list-item-container"
+      onClick={() => setShowRecordCard("test")}
+    >
       <div className="product-image">
         {record.imageLink ? (
           <img></img>
@@ -25,4 +30,4 @@ function Record({ record }: RecordProps) {
   );
 }
 
-export default Record;
+export default RecordListItem;

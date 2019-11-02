@@ -1,18 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import "./base-styles/index.scss";
 import NavBar from "./components/nav-bar/nav-bar";
 import Header from "./components/header/header";
 import Main from "./components/main/main";
+import { RecordCardContext } from "./context";
 
 function App() {
+  const [showRecordCard, setShowRecordCard] = useState(null);
   return (
     <div className="main-container">
-      <div className="app-body">
-        <NavBar></NavBar>
-        <Header title={"Items"}></Header>
-        <Main></Main>
-      </div>
+      <RecordCardContext.Provider value={{ showRecordCard, setShowRecordCard }}>
+        <div className="app-body">
+          <NavBar></NavBar>
+          <Header title={"Items"}></Header>
+          <Main></Main>
+        </div>
+      </RecordCardContext.Provider>
     </div>
   );
 }
