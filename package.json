@@ -30,6 +30,7 @@
     "classnames": "^2.2.6",
     "formik": "^2.0.3",
     "react": "^16.8.6",
+    "react-datepicker": "^2.9.6",
     "react-dom": "^16.8.6",
     "yup": "^0.27.0"
   },
@@ -40,7 +41,9 @@
     "@babel/preset-react": "^7.0.0",
     "@babel/preset-typescript": "^7.6.0",
     "@types/react": "^16.9.9",
+    "@types/react-datepicker": "^2.9.3",
     "@types/react-dom": "^16.9.2",
+    "@types/yup": "^0.26.24",
     "babel-eslint": "^10.0.2",
     "babel-loader": "^8.0.6",
     "cross-env": "^5.2.0",

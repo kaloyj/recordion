@@ -4,7 +4,15 @@
 
   .product-image-preview {
     height: 250px;
-    background-color: $dark-gray-base;
+    background-color: $primary-color;
+    justify-content: center;
+    align-content: center;
+
+    span {
+      flex: 0 0 30%;
+      text-align: center;
+      color: silver;
+    }
   }
 
   .product-form-body {
@@ -29,6 +37,28 @@
 
     textarea {
       height: 100px;
+    }
+  }
+
+  .product-actions {
+    .default {
+      width: 75px;
+      background-color: $primary-color;
+      color: $white-base;
+      transition: all 0.5s ease;
+
+      &:disabled {
+        background-color: darken($blue-gray, 20%);
+        border: darken($blue-gray, 20%);
+      }
+    }
+  }
+
+  .react-datepicker-wrapper {
+    width: 100%;
+
+    * {
+      width: 100%;
     }
   }
 }

@@ -1,29 +1,45 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import DatePicker from "react-datepicker";
+import * as Yup from "yup";
+
+const RecordSchema = Yup.object().shape({
+  productName: Yup.string()
+    .min(2, "Product Name must be more than 2 characters.")
+    .max(64, "Product Name must not exceed 64 characters.")
+    .required("Product Name is required"),
+  productDate: Yup.date().required("Product Name is required"),
+  productDescription: Yup.string().max(
+    240,
+    "Product Description must not exceed 240 characters."
+  )
+});
 
 function RecordForm() {
   return (
-    <div className="record-form-container flex-parent">
-      <div className="product-image-preview flex-1">
-        {/* {record.imageLink ? (
-          <img></img>
-        ) : (
-          <div className="image-placeholder flex-parent"></div>
-        )} */}
-      </div>
+    <Formik
+      enableReinitialize
+      validationSchema={RecordSchema}
+      initialValues={{
+        productName: "",
+        productDate: "",
+        productDescription: "",
+        imageLink: ""
+      }}
+      onSubmit={(values, { setSubmitting }) => {
+        setTimeout(() => {
+          alert(JSON.stringify(values, null, 2));
+          setSubmitting(false);
+        }, 400);
+      }}
+    >
+      {({ isSubmitting, values, setFieldValue }) => (
+        <div className="record-form-container flex-parent">
+          <div className="product-image-preview flex-1">
+            <span>Image Link Preview</span>
+          </div>
 
-      <div className="product-form-body margined-flex-1">
-        {/* insert form here */}
-        <Formik
-          initialValues={{ productName: "" }}
-          onSubmit={(values, { setSubmitting }) => {
-            setTimeout(() => {
-              alert(JSON.stringify(values, null, 2));
-              setSubmitting(false);
-            }, 400);
-          }}
-        >
-          {({ isSubmitting }) => (
+          <div className="product-form-body margined-flex-1">
             <Form className="flex-1">
               <div className="flex-1 field-item">
                 <label htmlFor="productName" className="flex-1">
@@ -37,7 +53,20 @@ function RecordForm() {
                 <label htmlFor="productDate" className="flex-1">
                   Product Date
                 </label>
-                <Field type="text" name="productDate" className="flex-1" />
+                <div className="flex-1">
+                  <DatePicker
+                    selected={
+                      (values &&
+                        values.productDate &&
+                        new Date(values.productDate)) ||
+                      null
+                    }
+                    onChange={(val: Date) => {
+                      setFieldValue("productDate", val);
+                    }}
+                  />
+                </div>
+
                 <ErrorMessage name="productDate" component="div" />
               </div>
 
@@ -62,15 +91,19 @@ function RecordForm() {
               </div>
 
               <div className="product-actions">
-                <button type="submit" className="default">
+                <button
+                  type="submit"
+                  className="default"
+                  disabled={isSubmitting}
+                >
                   Save
                 </button>
               </div>
             </Form>
-          )}
-        </Formik>
-      </div>
-    </div>
+          </div>
+        </div>
+      )}
+    </Formik>
   );
 }
 

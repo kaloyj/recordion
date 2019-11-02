@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import "./base-styles/index.scss";
+import "react-datepicker/dist/react-datepicker.css";
 import NavBar from "./components/nav-bar/nav-bar";
 import Header from "./components/header/header";
 import Main from "./components/main/main";
