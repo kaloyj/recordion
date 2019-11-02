@@ -1,0 +1,37 @@
+.record-details-container {
+  height: 100%;
+  align-content: start;
+
+  .image-placeholder {
+    height: 250px;
+    background-color: $dark-gray-base;
+  }
+
+  .product-content {
+    margin-top: 4%;
+  }
+
+  .product-description {
+    margin: 8% 0;
+  }
+}
+
+.product-actions {
+  button {
+    padding: 5px 15px;
+    border-radius: 5px;
+    margin-right: 4%;
+    background-color: transparent;
+    font-size: $font-size-base;
+  }
+
+  .default {
+    color: $primary-color;
+    border: 1px solid $primary-color;
+  }
+
+  .danger {
+    color: $red-base;
+    border: 1px solid $red-base;
+  }
+}

@@ -1,5 +1,4 @@
 .record-card-container {
-  border: 3px solid black;
   position: absolute;
   top: 12vh;
   width: 100vw;
@@ -8,10 +7,15 @@
   background: $white-base;
   border-top-left-radius: 45px;
   border-top-right-radius: 45px;
+  overflow: hidden;
 
   .close-button {
     position: absolute;
     top: 2%;
     right: 8%;
+
+    span {
+      color: $white-base;
+    }
   }
 }

@@ -20,7 +20,7 @@ const RecordCard = ({ children }: RecordCardProps) => {
   }, []);
 
   return createPortal(
-    <div className="record-card-container">
+    <div className="record-card-container flex-parent">
       <button className="close-button" onClick={() => setShowRecordCard(null)}>
         <span>x</span>
       </button>

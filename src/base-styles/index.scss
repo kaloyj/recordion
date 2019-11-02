@@ -7,6 +7,7 @@
 @import "../components/record/components/record-list-item/record-list-item";
 @import "../components/add-button/add-button";
 @import "../components/record/components/record-card/record-card";
+@import "../components/record/components/record-details/record-details";
 
 html {
   box-sizing: border-box;
@@ -60,4 +61,49 @@ body {
 .body-container {
   display: flex;
   flex-flow: row wrap;
+}
+
+.flex-parent {
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.flex-1 {
+  flex: 0 0 100%;
+}
+
+.flex-2 {
+  flex: 0 0 50%;
+}
+
+.flex-3 {
+  flex: 0 0 33.33%;
+}
+
+.flex-4 {
+  flex: 0 0 25%;
+}
+
+.margined-flex-1,
+.margined-flex-2,
+.margined-flex-3,
+.margined-flex-4 {
+  margin-left: 8%;
+}
+
+.nargined-flex-1 {
+  flex: 0 0 84%;
+}
+
+.margined-flex-2 {
+  flex: 0 0 38%;
+}
+
+.margined-flex-3 {
+  flex: 0 0 22.33%;
+}
+
+.margined-flex-4 {
+  flex: 0 0 15%;
 }

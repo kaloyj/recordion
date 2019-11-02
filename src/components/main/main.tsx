@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { RecordListItem, RecordCard } from "../record/";
 import AddButton from "../add-button/add-button";
-import RecordListItemCard from "../record/components/record-card/record-card";
 import { RecordCardContext } from "../../context";
+import RecordDetails from "../record/components/record-details/record-details";
 
 function Main() {
   const { showRecordCard } = useContext(RecordCardContext);
@@ -25,7 +25,7 @@ function Main() {
 
       {showRecordCard == "test" ? (
         <RecordCard>
-          <div>hello</div>
+          <RecordDetails record={{}}></RecordDetails>
         </RecordCard>
       ) : null}
     </div>
