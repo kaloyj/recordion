@@ -1,6 +1,11 @@
 @import "./colors.scss";
 @import "./typography.scss";
-@import "../nav-bar/nav-bar";
+@import "../components/nav-bar/nav-bar";
+@import "../components/header/header";
+@import "../components/main/main";
+@import "../components/search-filter/search-filter";
+@import "../components/record/record";
+@import "../components/add-button/add-button";
 
 html {
   box-sizing: border-box;
@@ -20,18 +25,17 @@ body {
 .main-container {
   width: 100vw;
   height: 100vh;
-  overflow: hidden;
-  border: 3px solid black;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .app-body {
-  width: 92%;
+  width: 84%;
   height: 100%;
-  margin-left: 4%;
-  border: 3px solid black;
+  margin-left: 8%;
   display: grid;
   grid-template-columns: auto;
-  grid-template-rows: 1.5fr 1fr 9.5fr;
+  grid-template-rows: 1fr 1fr 10.5fr;
   grid-template-areas:
     "navbar"
     "header"
@@ -44,12 +48,10 @@ body {
 
 .header-area {
   grid-area: header;
-  border: 3px solid blue;
 }
 
 .body-container {
   grid-area: body;
-  border: 3px solid orange;
 }
 
 .nav-bar,

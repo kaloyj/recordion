@@ -1,0 +1,25 @@
+.record-container {
+  flex: 0 0 100%;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  margin-bottom: 4%;
+
+  .product-image {
+    flex: 0 1 auto;
+    display: flex;
+    flex-flow: row wrap;
+  }
+
+  .image-placeholder {
+    width: 65px;
+    height: 65px;
+    border-radius: 25%;
+    background-color: $dark-gray-base;
+  }
+
+  .data-preview {
+    margin-left: 4%;
+    flex: 1 0 auto;
+  }
+}
