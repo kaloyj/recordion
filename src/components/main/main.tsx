@@ -29,7 +29,7 @@ function Main() {
         </RecordCard>
       ) : null}
 
-      {showRecordCard == "add" ? (
+      {true ? (
         <RecordCard>
           <RecordForm></RecordForm>
         </RecordCard>
