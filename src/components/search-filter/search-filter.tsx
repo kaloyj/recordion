@@ -1,16 +1,37 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import SVGInline from "react-svg-inline";
 import MagnifyingGlass from "./magnifier.svg";
+import { RecordDispatch, RecordContext } from "../../context";
+import { useDebounce } from "../../hooks";
+import { SET_FILTERED_RECORDS } from "../../context/record-context";
 
-interface SearchFilterProps {
-  records: Array<{}>;
-  setFilteredRecords: React.Dispatch<React.SetStateAction<{}>>;
-}
+function SearchFilter() {
+  const { dispatch } = useContext(RecordDispatch);
+  const { records } = useContext(RecordContext);
+  const [searchKey, setSearchKey] = useState("");
 
-function SearchFilter({ records, setFilteredRecords }: SearchFilterProps) {
+  const debouncedSearchKey = useDebounce(searchKey, 500);
+
+  console.log({ records });
+
+  useEffect(() => {
+    const results = records.filter(record =>
+      record.productName.includes(debouncedSearchKey)
+    );
+    dispatch({
+      type: SET_FILTERED_RECORDS,
+      payload: results
+    });
+  }, [debouncedSearchKey, records]);
+
   return (
     <div className="search-filter">
-      <input type="text" placeholder="Find item by name" />
+      <input
+        type="text"
+        value={searchKey}
+        onChange={e => setSearchKey(e.target.value)}
+        placeholder="Find item by name"
+      />
       <div className="search-icon">
         <SVGInline height="16px" width="16px" svg={MagnifyingGlass} />
       </div>

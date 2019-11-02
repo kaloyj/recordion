@@ -2,7 +2,12 @@ import React, { useContext } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import DatePicker from "react-datepicker";
 import * as Yup from "yup";
-import { RecordCardContext } from "../../../../context";
+import { RecordCardContext, RecordDispatch } from "../../../../context";
+import { Record } from "../../../../interfaces";
+import {
+  SET_RECORDS,
+  SET_RECORDS_ID_TRACKER
+} from "../../../../context/record-context";
 
 const RecordSchema = Yup.object().shape({
   productName: Yup.string()
@@ -17,22 +22,19 @@ const RecordSchema = Yup.object().shape({
 });
 
 interface RecordFormProps {
-  records: Array<{
-    productName: string;
-    productDescription: string;
-    imageLink: string;
-    productDate: string;
-  }>;
-  setRecords: React.Dispatch<React.SetStateAction<{}>>;
+  records: Array<Record>;
+  idTracker: number;
 }
 
-function RecordForm({ records, setRecords }: RecordFormProps) {
+function RecordForm({ records, idTracker }: RecordFormProps) {
+  const { dispatch } = useContext(RecordDispatch);
   const { setShowRecordCard } = useContext(RecordCardContext);
   const isFirstCard = records && records.length == 0;
   return (
     <Formik
       validationSchema={RecordSchema}
       initialValues={{
+        id: idTracker,
         productName: "",
         productDate: new Date(),
         productDescription: "",
@@ -40,11 +42,17 @@ function RecordForm({ records, setRecords }: RecordFormProps) {
       }}
       onSubmit={(values, { setSubmitting }) => {
         setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
-          setRecords([
-            ...records,
-            { ...values, productDate: values.productDate.toDateString() }
-          ]);
+          dispatch({
+            type: SET_RECORDS,
+            payload: [
+              ...records,
+              { ...values, productDate: values.productDate.toDateString() }
+            ]
+          });
+          dispatch({
+            type: SET_RECORDS_ID_TRACKER,
+            payload: idTracker + 1
+          });
           setSubmitting(false);
           setShowRecordCard(null);
         }, 400);

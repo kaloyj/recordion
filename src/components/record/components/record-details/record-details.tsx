@@ -1,12 +1,8 @@
 import React, { useContext } from "react";
+import { Record } from "../../../../interfaces";
 
 interface RecordDetailsProps {
-  record: {
-    productName: string;
-    productDescription: string;
-    imageLink: string;
-    productDate: string;
-  };
+  record: Record;
 }
 
 function RecordDetails({
@@ -34,7 +30,9 @@ function RecordDetails({
 
         <div className="product-actions flex-1">
           <button className="default">Edit</button>
-          <button className="danger">Delete</button>
+          <button className="danger" onClick={() => {}}>
+            Delete
+          </button>
         </div>
       </div>
     </div>

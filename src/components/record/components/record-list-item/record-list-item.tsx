@@ -1,23 +1,19 @@
 import React, { useContext } from "react";
 import { RecordCardContext } from "../../../../context";
+import { Record } from "../../../../interfaces";
 
 interface RecordProps {
-  record: {
-    productName: string;
-    productDescription: string;
-    imageLink: string;
-    productDate: Date;
-  };
+  record: Record;
 }
 
 function RecordListItem({
-  record: { productName, imageLink, productDate }
+  record: { id, productName, imageLink, productDate }
 }: RecordProps) {
   const { setShowRecordCard } = useContext(RecordCardContext);
   return (
     <div
       className="record-list-item-container flex-parent"
-      onClick={() => setShowRecordCard("test")}
+      onClick={() => setShowRecordCard(id)}
     >
       <div className="product-image">
         {imageLink ? (

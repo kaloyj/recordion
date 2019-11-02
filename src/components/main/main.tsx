@@ -1,27 +1,18 @@
 import React, { useContext, useState, useEffect } from "react";
 import { RecordListItem, RecordCard, RecordForm } from "../record/";
 import AddButton from "../add-button/add-button";
-import { RecordCardContext } from "../../context";
+import {
+  RecordCardContext,
+  RecordContext,
+  RecordDispatch
+} from "../../context";
 import RecordDetails from "../record/components/record-details/record-details";
+import { SET_FILTERED_RECORDS } from "../../context/record-context";
 
-interface MainProps {
-  filteredRecords: Array<{
-    productName: string;
-    productDescription: string;
-    imageLink: string;
-    productDate: string;
-  }>;
-  records: Array<{
-    productName: string;
-    productDescription: string;
-    imageLink: string;
-    productDate: string;
-  }>;
-  setRecords: React.Dispatch<React.SetStateAction<{}>>;
-}
-
-function Main({ filteredRecords, records, setRecords }: MainProps) {
+function Main() {
   const { showRecordCard, setShowRecordCard } = useContext(RecordCardContext);
+  const { records, filteredRecords, idTracker } = useContext(RecordContext);
+  const { dispatch } = useContext(RecordDispatch);
 
   useEffect(() => {
     if (records && records.length == 0) {
@@ -32,23 +23,24 @@ function Main({ filteredRecords, records, setRecords }: MainProps) {
   return (
     <div className="body-container">
       {filteredRecords && filteredRecords.length ? (
-        filteredRecords.map((record, index) => (
-          <RecordListItem key={index} record={record}></RecordListItem>
+        filteredRecords.map(record => (
+          <div className="flex-1" key={record.id}>
+            <RecordListItem record={record}></RecordListItem>
+            {showRecordCard == record.id ? (
+              <RecordCard>
+                <RecordDetails record={record}></RecordDetails>
+              </RecordCard>
+            ) : null}
+          </div>
         ))
       ) : (
         <div>No items found.</div>
       )}
       <AddButton></AddButton>
 
-      {showRecordCard == "test" ? (
-        <RecordCard>
-          <RecordDetails record={records[0]}></RecordDetails>
-        </RecordCard>
-      ) : null}
-
       {showRecordCard == "add" ? (
-        <RecordCard isFirstCard={records.length == 0}>
-          <RecordForm records={records} setRecords={setRecords}></RecordForm>
+        <RecordCard isFirstCard={records && records.length == 0}>
+          <RecordForm records={records} idTracker={idTracker}></RecordForm>
         </RecordCard>
       ) : null}
     </div>
