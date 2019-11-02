@@ -12,7 +12,6 @@ import { SET_FILTERED_RECORDS } from "../../context/record-context";
 function Main() {
   const { showRecordCard, setShowRecordCard } = useContext(RecordCardContext);
   const { records, filteredRecords, idTracker } = useContext(RecordContext);
-  const { dispatch } = useContext(RecordDispatch);
 
   useEffect(() => {
     if (records && records.length == 0) {
@@ -28,7 +27,10 @@ function Main() {
             <RecordListItem record={record}></RecordListItem>
             {showRecordCard == record.id ? (
               <RecordCard>
-                <RecordDetails record={record}></RecordDetails>
+                <RecordDetails
+                  record={record}
+                  records={records}
+                ></RecordDetails>
               </RecordCard>
             ) : null}
           </div>
