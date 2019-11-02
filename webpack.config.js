@@ -44,11 +44,15 @@ module.exports = {
           "css-loader",
           "sass-loader"
         ]
+      },
+      {
+        test: /\.svg$/,
+        loader: "svg-inline-loader"
       }
     ]
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".js", ".jsx", ".scss", ".css"]
+    extensions: [".tsx", ".ts", ".js", ".jsx", ".scss", ".css", ".svg"]
   },
   output: {
     filename: "index.js",
