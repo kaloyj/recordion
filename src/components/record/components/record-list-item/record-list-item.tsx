@@ -9,11 +9,16 @@ interface RecordProps {
 function RecordListItem({
   record: { id, productName, imageLink, productDate }
 }: RecordProps) {
-  const { setShowRecordCard } = useContext(RecordCardContext);
+  const { setShowRecordCard, setRecordCardActionType } = useContext(
+    RecordCardContext
+  );
   return (
     <div
       className="record-list-item-container flex-parent"
-      onClick={() => setShowRecordCard(id)}
+      onClick={() => {
+        setShowRecordCard(id);
+        setRecordCardActionType("view");
+      }}
     >
       <div className="product-image">
         {imageLink ? (

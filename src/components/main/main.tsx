@@ -10,12 +10,17 @@ import RecordDetails from "../record/components/record-details/record-details";
 import { SET_FILTERED_RECORDS } from "../../context/record-context";
 
 function Main() {
-  const { showRecordCard, setShowRecordCard } = useContext(RecordCardContext);
+  const {
+    showRecordCard,
+    setShowRecordCard,
+    recordCardActionType,
+    setRecordCardActionType
+  } = useContext(RecordCardContext);
   const { records, filteredRecords, idTracker } = useContext(RecordContext);
 
   useEffect(() => {
     if (records && records.length == 0) {
-      setShowRecordCard("add");
+      setRecordCardActionType("add");
     }
   }, [records]);
 
@@ -25,7 +30,7 @@ function Main() {
         filteredRecords.map(record => (
           <div className="flex-1" key={record.id}>
             <RecordListItem record={record}></RecordListItem>
-            {showRecordCard == record.id ? (
+            {recordCardActionType == "view" && showRecordCard == record.id ? (
               <RecordCard>
                 <RecordDetails
                   record={record}
@@ -40,7 +45,7 @@ function Main() {
       )}
       <AddButton></AddButton>
 
-      {showRecordCard == "add" ? (
+      {recordCardActionType == "add" && showRecordCard == null ? (
         <RecordCard isFirstCard={records && records.length == 0}>
           <RecordForm records={records} idTracker={idTracker}></RecordForm>
         </RecordCard>

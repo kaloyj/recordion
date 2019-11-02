@@ -1,19 +1,33 @@
 import React, { useContext } from "react";
 import { Record } from "../../../../interfaces";
 import { RecordDispatch, RecordCardContext } from "../../../../context";
-import { SET_RECORDS } from "../../../../context/record-context";
+import { SET_RECORDS, RecordContext } from "../../../../context/record-context";
+import RecordForm from "../record-form/record-form";
+import { RecordCard } from "../..";
 
 interface RecordDetailsProps {
   record: Record;
   records: Array<Record>;
 }
 
-function RecordDetails({
-  record: { id, productName, productDescription, imageLink, productDate },
-  records
-}: RecordDetailsProps) {
+function RecordDetails({ record, records }: RecordDetailsProps) {
+  const {
+    id,
+    productName,
+    productDescription,
+    imageLink,
+    productDate
+  } = record;
   const { dispatch } = useContext(RecordDispatch);
-  const { setShowRecordCard } = useContext(RecordCardContext);
+  const { idTracker } = useContext(RecordContext);
+  const {
+    showRecordCard,
+    recordCardActionType,
+    setShowRecordCard,
+    setRecordCardActionType
+  } = useContext(RecordCardContext);
+
+  console.log({ showRecordCard, recordCardActionType });
   return (
     <div className="record-details-container flex-parent">
       <div className="product-image flex-1">
@@ -35,11 +49,21 @@ function RecordDetails({
         </div>
 
         <div className="product-actions flex-1">
-          <button className="default">Edit</button>
+          <button
+            className="default"
+            onClick={() => {
+              console.log("clicked!");
+              setRecordCardActionType("edit");
+              setShowRecordCard(id);
+            }}
+          >
+            Edit
+          </button>
           <button
             className="danger"
             onClick={() => {
               setShowRecordCard(null);
+              setRecordCardActionType(null);
               const index = records.findIndex(record => record.id == id);
               const newRecords = [...records];
               newRecords.splice(index, 1);
@@ -54,6 +78,16 @@ function RecordDetails({
           </button>
         </div>
       </div>
+
+      {showRecordCard == id && recordCardActionType == "edit" ? (
+        <RecordCard>
+          <RecordForm
+            records={records}
+            record={record}
+            idTracker={idTracker}
+          ></RecordForm>
+        </RecordCard>
+      ) : null}
     </div>
   );
 }

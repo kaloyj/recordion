@@ -23,23 +23,30 @@ const RecordSchema = Yup.object().shape({
 
 interface RecordFormProps {
   records: Array<Record>;
+  record?: Record;
   idTracker: number;
 }
 
-function RecordForm({ records, idTracker }: RecordFormProps) {
+function RecordForm({ records, record, idTracker }: RecordFormProps) {
   const { dispatch } = useContext(RecordDispatch);
-  const { setShowRecordCard } = useContext(RecordCardContext);
+  const { setShowRecordCard, setRecordCardActionType } = useContext(
+    RecordCardContext
+  );
   const isFirstCard = records && records.length == 0;
   return (
     <Formik
       validationSchema={RecordSchema}
-      initialValues={{
-        id: idTracker,
-        productName: "",
-        productDate: new Date(),
-        productDescription: "",
-        imageLink: ""
-      }}
+      initialValues={
+        record && record.id
+          ? record
+          : {
+              id: idTracker,
+              productName: "",
+              productDate: new Date(),
+              productDescription: "",
+              imageLink: ""
+            }
+      }
       onSubmit={(values, { setSubmitting }) => {
         setTimeout(() => {
           dispatch({
@@ -55,6 +62,7 @@ function RecordForm({ records, idTracker }: RecordFormProps) {
           });
           setSubmitting(false);
           setShowRecordCard(null);
+          setRecordCardActionType(null);
         }, 400);
       }}
     >
