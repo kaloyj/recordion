@@ -2,7 +2,12 @@ import React from "react";
 import SVGInline from "react-svg-inline";
 import MagnifyingGlass from "./magnifier.svg";
 
-function SearchFilter() {
+interface SearchFilterProps {
+  records: Array<{}>;
+  setFilteredRecords: React.Dispatch<React.SetStateAction<{}>>;
+}
+
+function SearchFilter({ records, setFilteredRecords }: SearchFilterProps) {
   return (
     <div className="search-filter">
       <input type="text" placeholder="Find item by name" />

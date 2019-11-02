@@ -3,11 +3,16 @@ import { RecordCardContext } from "../../../../context";
 
 interface RecordProps {
   record: {
+    productName: string;
+    productDescription: string;
     imageLink: string;
+    productDate: Date;
   };
 }
 
-function RecordListItem({ record }: RecordProps) {
+function RecordListItem({
+  record: { productName, imageLink, productDate }
+}: RecordProps) {
   const { setShowRecordCard } = useContext(RecordCardContext);
   return (
     <div
@@ -15,16 +20,16 @@ function RecordListItem({ record }: RecordProps) {
       onClick={() => setShowRecordCard("test")}
     >
       <div className="product-image">
-        {record.imageLink ? (
-          <img></img>
+        {imageLink ? (
+          <img src={imageLink}></img>
         ) : (
           <div className="image-placeholder"></div>
         )}
       </div>
 
       <div className="data-preview">
-        <h2>Name</h2>
-        <div>Date</div>
+        <h2>{productName}</h2>
+        <div>{productDate}</div>
       </div>
     </div>
   );

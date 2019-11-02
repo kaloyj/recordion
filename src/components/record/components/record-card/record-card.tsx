@@ -4,9 +4,10 @@ import { RecordCardContext } from "../../../../context";
 
 interface RecordCardProps {
   children: Object;
+  isFirstCard?: boolean;
 }
 
-const RecordCard = ({ children }: RecordCardProps) => {
+const RecordCard = ({ children, isFirstCard }: RecordCardProps) => {
   const elRef = useRef(null);
   const { setShowRecordCard } = useContext(RecordCardContext);
   if (!elRef.current) {
@@ -21,9 +22,15 @@ const RecordCard = ({ children }: RecordCardProps) => {
 
   return createPortal(
     <div className="record-card-container flex-parent">
-      <button className="close-button" onClick={() => setShowRecordCard(null)}>
-        <span>x</span>
-      </button>
+      {!isFirstCard ? (
+        <button
+          className="close-button"
+          onClick={() => setShowRecordCard(null)}
+        >
+          <span>x</span>
+        </button>
+      ) : null}
+
       {children}
     </div>,
     elRef.current
