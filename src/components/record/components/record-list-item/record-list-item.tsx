@@ -11,7 +11,7 @@ function RecordListItem({ record }: RecordProps) {
   const { setShowRecordCard } = useContext(RecordCardContext);
   return (
     <div
-      className="record-list-item-container"
+      className="record-list-item-container flex-parent"
       onClick={() => setShowRecordCard("test")}
     >
       <div className="product-image">

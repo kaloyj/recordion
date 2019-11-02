@@ -8,19 +8,6 @@ function Main() {
   const { showRecordCard } = useContext(RecordCardContext);
   return (
     <div className="body-container">
-      <RecordListItem record={{}}></RecordListItem>
-      <RecordListItem record={{}}></RecordListItem>
-      <RecordListItem record={{}}></RecordListItem>
-      <RecordListItem record={{}}></RecordListItem>
-      <RecordListItem record={{}}></RecordListItem>
-      <RecordListItem record={{}}></RecordListItem>
-      <RecordListItem record={{}}></RecordListItem>
-      <RecordListItem record={{}}></RecordListItem>
-      <RecordListItem record={{}}></RecordListItem>
-      <RecordListItem record={{}}></RecordListItem>
-      <RecordListItem record={{}}></RecordListItem>
-      <RecordListItem record={{}}></RecordListItem>
-
       <AddButton></AddButton>
 
       {showRecordCard == "test" ? (
@@ -29,7 +16,7 @@ function Main() {
         </RecordCard>
       ) : null}
 
-      {true ? (
+      {showRecordCard == "add" ? (
         <RecordCard>
           <RecordForm></RecordForm>
         </RecordCard>

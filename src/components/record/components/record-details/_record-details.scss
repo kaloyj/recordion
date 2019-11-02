@@ -4,7 +4,7 @@
 
   .image-placeholder {
     height: 250px;
-    background-color: $dark-gray-base;
+    background-color: $primary-color;
   }
 
   .product-content {
@@ -17,6 +17,7 @@
 }
 
 .product-actions {
+  margin-top: 4%;
   button {
     padding: 5px 15px;
     border-radius: 5px;

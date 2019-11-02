@@ -5,9 +5,8 @@ function SearchFilter() {
     <div className="search-filter">
       <span>filter by</span>
       <select>
-        <option>hello somebody</option>
-        <option>hello world</option>
-        <option>hello yas</option>
+        <option>Name</option>
+        <option>Date</option>
       </select>
     </div>
   );

@@ -8,7 +8,7 @@ const RecordSchema = Yup.object().shape({
     .min(2, "Product Name must be more than 2 characters.")
     .max(64, "Product Name must not exceed 64 characters.")
     .required("Product Name is required"),
-  productDate: Yup.date().required("Product Name is required"),
+  productDate: Yup.date().required("Product Date is required"),
   productDescription: Yup.string().max(
     240,
     "Product Description must not exceed 240 characters."
@@ -33,10 +33,26 @@ function RecordForm() {
         }, 400);
       }}
     >
-      {({ isSubmitting, values, setFieldValue }) => (
+      {({
+        isSubmitting,
+        isValidating,
+        values,
+        setFieldValue,
+        setFieldError
+      }) => (
         <div className="record-form-container flex-parent">
           <div className="product-image-preview flex-1">
-            <span>Image Link Preview</span>
+            {values && values.imageLink ? (
+              <img
+                src={values.imageLink}
+                onError={e => {
+                  // do something here to validate URL
+                }}
+                alt="product image"
+              ></img>
+            ) : (
+              <span>Image Link Preview</span>
+            )}
           </div>
 
           <div className="product-form-body margined-flex-1">
@@ -46,7 +62,11 @@ function RecordForm() {
                   Product Name
                 </label>
                 <Field type="text" name="productName" className="flex-1" />
-                <ErrorMessage name="productName" component="div" />
+                <ErrorMessage
+                  name="productName"
+                  component="div"
+                  className="error-message flex-1"
+                />
               </div>
 
               <div className="flex-1 field-item">
@@ -67,7 +87,11 @@ function RecordForm() {
                   />
                 </div>
 
-                <ErrorMessage name="productDate" component="div" />
+                <ErrorMessage
+                  name="productDate"
+                  component="div"
+                  className="error-message flex-1"
+                />
               </div>
 
               <div className="flex-1 field-item">
@@ -75,7 +99,11 @@ function RecordForm() {
                   Image Link
                 </label>
                 <Field type="text" name="imageLink" className="flex-1" />
-                <ErrorMessage name="imageLink" component="div" />
+                <ErrorMessage
+                  name="imageLink"
+                  component="div"
+                  className="error-message flex-1"
+                />
               </div>
 
               <div className="flex-1 field-item">
@@ -87,14 +115,18 @@ function RecordForm() {
                   name="productDescription"
                   className="flex-1"
                 />
-                <ErrorMessage name="productDescription" component="div" />
+                <ErrorMessage
+                  name="productDescription"
+                  component="div"
+                  className="error-message flex-1"
+                />
               </div>
 
               <div className="product-actions">
                 <button
                   type="submit"
                   className="default"
-                  disabled={isSubmitting}
+                  disabled={isSubmitting || isValidating}
                 >
                   Save
                 </button>
