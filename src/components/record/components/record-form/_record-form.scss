@@ -1,0 +1,13 @@
+.record-form-container {
+  height: 100%;
+  align-content: start;
+
+  .product-image-preview {
+    height: 250px;
+    background-color: $dark-gray-base;
+  }
+
+  .product-form-body {
+    margin-top: 4%;
+  }
+}
