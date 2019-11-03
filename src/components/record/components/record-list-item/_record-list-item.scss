@@ -20,7 +20,17 @@
     width: 65px;
     height: 65px;
     border-radius: 25%;
-    background-color: $dark-gray-base;
+    background-color: $dark-gray-gray;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: center;
+
+    span {
+      text-transform: uppercase;
+      color: $white-base;
+      font-weight: 600;
+    }
   }
 
   .data-preview {

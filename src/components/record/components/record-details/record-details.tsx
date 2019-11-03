@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Record } from "../../../../interfaces";
 import { RecordDispatch, RecordCardContext } from "../../../../context";
 import { SET_RECORDS, RecordContext } from "../../../../context/record-context";
@@ -20,14 +20,10 @@ function RecordDetails({ record, records }: RecordDetailsProps) {
   } = record;
   const { dispatch } = useContext(RecordDispatch);
   const { idTracker } = useContext(RecordContext);
-  const {
-    showRecordCard,
-    recordCardActionType,
-    setShowRecordCard,
-    setRecordCardActionType
-  } = useContext(RecordCardContext);
+  const { showRecordCard, setShowRecordCard } = useContext(RecordCardContext);
+  const [isEditingRecord, setIsEditingRecord] = useState(false);
 
-  console.log({ showRecordCard, recordCardActionType });
+  console.log({ showRecordCard });
   return (
     <div className="record-details-container flex-parent">
       <div className="product-image flex-1">
@@ -53,8 +49,7 @@ function RecordDetails({ record, records }: RecordDetailsProps) {
             className="default"
             onClick={() => {
               console.log("clicked!");
-              setRecordCardActionType("edit");
-              setShowRecordCard(id);
+              setIsEditingRecord(true);
             }}
           >
             Edit
@@ -63,7 +58,6 @@ function RecordDetails({ record, records }: RecordDetailsProps) {
             className="danger"
             onClick={() => {
               setShowRecordCard(null);
-              setRecordCardActionType(null);
               const newRecords = new Map([...records]);
               if (newRecords.delete(id)) {
                 console.log("in hereee", { newRecords });
@@ -79,7 +73,7 @@ function RecordDetails({ record, records }: RecordDetailsProps) {
         </div>
       </div>
 
-      {showRecordCard == id && recordCardActionType == "edit" ? (
+      {isEditingRecord && showRecordCard == id ? (
         <RecordCard>
           <RecordForm
             records={records}

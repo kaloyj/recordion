@@ -29,20 +29,19 @@ interface RecordFormProps {
 
 function RecordForm({ records, record, idTracker }: RecordFormProps) {
   const { dispatch } = useContext(RecordDispatch);
-  const { setShowRecordCard, setRecordCardActionType } = useContext(
-    RecordCardContext
-  );
+  const { setShowRecordCard } = useContext(RecordCardContext);
   const isFirstCard = records && records.size == 0;
+
   return (
     <Formik
       validationSchema={RecordSchema}
       initialValues={
-        record && record.id
+        record && record.productName
           ? record
           : {
               id: idTracker,
               productName: "",
-              productDate: new Date(),
+              productDate: "",
               productDescription: "",
               imageLink: ""
             }
@@ -51,7 +50,7 @@ function RecordForm({ records, record, idTracker }: RecordFormProps) {
         setTimeout(() => {
           dispatch({
             type: SET_RECORDS,
-            payload: new Map([...records, [idTracker, { ...values }]])
+            payload: new Map([...records, [values.id, { ...values }]])
           });
           dispatch({
             type: SET_RECORDS_ID_TRACKER,
@@ -59,7 +58,6 @@ function RecordForm({ records, record, idTracker }: RecordFormProps) {
           });
           setSubmitting(false);
           setShowRecordCard(null);
-          setRecordCardActionType(null);
         }, 400);
       }}
     >
@@ -111,6 +109,7 @@ function RecordForm({ records, record, idTracker }: RecordFormProps) {
                       console.log("vallll", { val });
                       setFieldValue("productDate", val.toDateString());
                     }}
+                    onChangeRaw={e => e.preventDefault()}
                   />
                 </div>
 

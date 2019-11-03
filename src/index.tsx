@@ -9,7 +9,6 @@ import { RecordCardContext, RecordContextProvider } from "./context";
 
 function App() {
   const [showRecordCard, setShowRecordCard] = useState(null);
-  const [recordCardActionType, setRecordCardActionType] = useState(null);
 
   return (
     <div className="main-container">
@@ -17,9 +16,7 @@ function App() {
         <RecordCardContext.Provider
           value={{
             showRecordCard,
-            setShowRecordCard,
-            recordCardActionType,
-            setRecordCardActionType
+            setShowRecordCard
           }}
         >
           <div className="app-body">
