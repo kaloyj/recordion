@@ -37,7 +37,7 @@ function RecordDetails({ record, records }: RecordDetailsProps) {
       <div className="product-content margined-flex-1">
         <h2 className="product-title flex-1">{productName}</h2>
         <div className="product-date flex-1">
-          Created on <span>{productDate}</span>
+          Created on <span>{productDate.toDateString()}</span>
         </div>
 
         <div className="product-description flex-1">

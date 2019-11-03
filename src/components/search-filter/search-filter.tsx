@@ -19,9 +19,19 @@ function SearchFilter() {
     let results: Array<Record> = [];
     records.forEach(record => {
       if (record.productName.includes(debouncedSearchKey)) {
+        // do sorting here
         results.push(record);
       }
     });
+
+    console.log("before", { results });
+
+    results.sort((firstEl: Record, secondEl: Record): number => {
+      return secondEl.productDate.getTime() - firstEl.productDate.getTime();
+    });
+
+    console.log("after", { results });
+
     dispatch({
       type: SET_FILTERED_RECORDS,
       payload: results

@@ -107,7 +107,7 @@ function RecordForm({ records, record, idTracker }: RecordFormProps) {
                     }
                     onChange={(val: Date) => {
                       console.log("vallll", { val });
-                      setFieldValue("productDate", val.toDateString());
+                      setFieldValue("productDate", val);
                     }}
                     onChangeRaw={e => e.preventDefault()}
                   />

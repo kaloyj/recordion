@@ -29,7 +29,7 @@ function RecordListItem({
 
       <div className="data-preview">
         <h2>{productName}</h2>
-        <div>{productDate}</div>
+        <div>{productDate.toDateString()}</div>
       </div>
     </div>
   );
