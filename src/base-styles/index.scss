@@ -30,6 +30,8 @@ body {
   height: 100vh;
   overflow-x: hidden;
   overflow-y: auto;
+  position: relative;
+  background-color: $dirty-white-base;
 }
 
 .app-body {
@@ -38,11 +40,46 @@ body {
   margin-left: 8%;
   display: grid;
   grid-template-columns: auto;
-  grid-template-rows: 1fr 1fr 10.5fr;
+  grid-template-rows: 1fr 1fr 10fr;
   grid-template-areas:
     "navbar"
     "header"
     "body";
+
+  // tablets
+  @media (min-width: 768px) {
+    grid-template-columns: 6fr 6fr;
+    grid-template-rows: 1fr minmax(0, 1fr) 10fr;
+    grid-gap: 0 4%;
+    grid-template-areas:
+      "navbar navbar"
+      "header preview"
+      "body   preview";
+
+    .record-card-container {
+      grid-area: preview;
+    }
+  }
+
+  //bigger tablets
+  @media (min-width: 1024px) {
+    grid-template-columns: 4.5fr 7.5fr;
+  }
+
+  //desktop
+  @media (min-width: 1200px) {
+    grid-template-columns: 3fr 6fr 3fr;
+    grid-template-areas:
+      "navbar navbar navbar"
+      "header preview ."
+      "body   preview .";
+  }
+
+  // large screens
+  @media (min-width: 1824px) {
+    grid-template-rows: 1fr minmax(0, 1fr) 10fr;
+    grid-template-columns: 3fr 5fr 4fr;
+  }
 }
 
 .nav-bar {

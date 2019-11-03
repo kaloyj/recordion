@@ -79,7 +79,12 @@ function RecordForm({ records, record, idTracker }: RecordFormProps) {
 
           <div className="product-form-body margined-flex-1">
             <Form className="flex-1">
-              {isFirstCard ? <h3>Your list is empty. Add an item.</h3> : null}
+              {isFirstCard ? (
+                <>
+                  <h3 className="flex-1">Your list is empty.</h3>
+                  <h3 className="flex-1"> Add an item.</h3>
+                </>
+              ) : null}
 
               <div className="flex-1 field-item">
                 <label htmlFor="productName" className="flex-1">

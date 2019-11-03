@@ -23,6 +23,7 @@ function App() {
             <NavBar></NavBar>
             <Header title={"Items"}></Header>
             <Main></Main>
+            <div id="record-card"></div>
           </div>
         </RecordCardContext.Provider>
       </RecordContextProvider>

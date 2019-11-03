@@ -26,11 +26,14 @@
 
   .product-description {
     margin: 8% 0;
+    font-size: $font-size-base;
+    font-weight: 300;
   }
 
   .product-date {
     span {
       margin-left: 2%;
+      font-weight: 700;
     }
   }
 }
@@ -42,7 +45,7 @@
     border-radius: 5px;
     margin-right: 4%;
     background-color: transparent;
-    font-size: $font-size-base;
+    font-size: $input-font-size-base;
   }
 
   .default {

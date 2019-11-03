@@ -25,9 +25,8 @@
     margin-top: 8%;
   }
 
-  h3 {
+  h3:last-of-type {
     margin-bottom: 4%;
-    flex: 0 0 60%;
   }
 
   .field-item {
@@ -44,7 +43,7 @@
       border-radius: 5px;
       border: none;
       background-color: $input-color-base;
-      font-size: $font-size-base;
+      font-size: $input-font-size-base;
       padding: 2% 4%;
       font-weight: 300;
     }

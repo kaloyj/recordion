@@ -23,7 +23,10 @@ function Main() {
       {filteredRecords && filteredRecords.length ? (
         filteredRecords.map(record => (
           <div className="flex-1" key={record.id}>
-            <RecordListItem record={record}></RecordListItem>
+            <RecordListItem
+              record={record}
+              selected={showRecordCard == record.id}
+            ></RecordListItem>
             {showRecordCard == record.id ? (
               <RecordCard>
                 <RecordDetails
