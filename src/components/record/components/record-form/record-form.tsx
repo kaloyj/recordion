@@ -22,7 +22,7 @@ const RecordSchema = Yup.object().shape({
 });
 
 interface RecordFormProps {
-  records: Array<Record>;
+  records: Map<Number, Record>;
   record?: Record;
   idTracker: number;
 }
@@ -32,7 +32,7 @@ function RecordForm({ records, record, idTracker }: RecordFormProps) {
   const { setShowRecordCard, setRecordCardActionType } = useContext(
     RecordCardContext
   );
-  const isFirstCard = records && records.length == 0;
+  const isFirstCard = records && records.size == 0;
   return (
     <Formik
       validationSchema={RecordSchema}
@@ -51,10 +51,7 @@ function RecordForm({ records, record, idTracker }: RecordFormProps) {
         setTimeout(() => {
           dispatch({
             type: SET_RECORDS,
-            payload: [
-              ...records,
-              { ...values, productDate: values.productDate.toDateString() }
-            ]
+            payload: new Map([...records, [idTracker, { ...values }]])
           });
           dispatch({
             type: SET_RECORDS_ID_TRACKER,
@@ -112,7 +109,7 @@ function RecordForm({ records, record, idTracker }: RecordFormProps) {
                     }
                     onChange={(val: Date) => {
                       console.log("vallll", { val });
-                      setFieldValue("productDate", val);
+                      setFieldValue("productDate", val.toDateString());
                     }}
                   />
                 </div>

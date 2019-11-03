@@ -2,9 +2,12 @@ import React, { useContext } from "react";
 import { RecordCardContext } from "../../context";
 
 function AddButton() {
-  const { setShowRecordCard } = useContext(RecordCardContext);
+  const { setRecordCardActionType } = useContext(RecordCardContext);
   return (
-    <button className="add-button" onClick={() => setShowRecordCard("add")}>
+    <button
+      className="add-button"
+      onClick={() => setRecordCardActionType("add")}
+    >
       <span>+</span>
     </button>
   );

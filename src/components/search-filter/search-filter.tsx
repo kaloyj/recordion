@@ -4,6 +4,7 @@ import MagnifyingGlass from "./magnifier.svg";
 import { RecordDispatch, RecordContext } from "../../context";
 import { useDebounce } from "../../hooks";
 import { SET_FILTERED_RECORDS } from "../../context/record-context";
+import { Record } from "../../interfaces";
 
 function SearchFilter() {
   const { dispatch } = useContext(RecordDispatch);
@@ -15,9 +16,12 @@ function SearchFilter() {
   console.log({ records });
 
   useEffect(() => {
-    const results = records.filter(record =>
-      record.productName.includes(debouncedSearchKey)
-    );
+    let results: Array<Record> = [];
+    records.forEach(record => {
+      if (record.productName.includes(debouncedSearchKey)) {
+        results.push(record);
+      }
+    });
     dispatch({
       type: SET_FILTERED_RECORDS,
       payload: results

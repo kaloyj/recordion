@@ -7,19 +7,17 @@ import {
   RecordDispatch
 } from "../../context";
 import RecordDetails from "../record/components/record-details/record-details";
-import { SET_FILTERED_RECORDS } from "../../context/record-context";
 
 function Main() {
   const {
     showRecordCard,
-    setShowRecordCard,
     recordCardActionType,
     setRecordCardActionType
   } = useContext(RecordCardContext);
   const { records, filteredRecords, idTracker } = useContext(RecordContext);
 
   useEffect(() => {
-    if (records && records.length == 0) {
+    if (records && records.size == 0) {
       setRecordCardActionType("add");
     }
   }, [records]);
@@ -46,7 +44,7 @@ function Main() {
       <AddButton></AddButton>
 
       {recordCardActionType == "add" && showRecordCard == null ? (
-        <RecordCard isFirstCard={records && records.length == 0}>
+        <RecordCard isFirstCard={records && records.size == 0}>
           <RecordForm records={records} idTracker={idTracker}></RecordForm>
         </RecordCard>
       ) : null}

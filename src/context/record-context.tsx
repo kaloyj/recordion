@@ -7,11 +7,11 @@ export const SET_FILTERED_RECORDS = "SET_FILTERED_RECORDS";
 export const SET_RECORDS_ID_TRACKER = "SET_RECORDS_ID_TRACKER";
 
 const initialState: {
-  records: Array<Record>;
+  records: Map<Number, Record>;
   filteredRecords: Array<Record>;
   idTracker: number;
 } = {
-  records: [],
+  records: new Map(),
   filteredRecords: [],
   idTracker: 0
 };
@@ -19,9 +19,15 @@ const initialState: {
 const reducer = (state: any, action: { type: string; payload: any }) => {
   switch (action.type) {
     case SET_RECORDS:
-      return { ...state, records: action.payload };
+      return {
+        ...state,
+        records: action.payload
+      };
     case SET_FILTERED_RECORDS:
-      return { ...state, filteredRecords: action.payload };
+      return {
+        ...state,
+        filteredRecords: action.payload
+      };
     case SET_RECORDS_ID_TRACKER:
       return { ...state, idTracker: action.payload };
     default:

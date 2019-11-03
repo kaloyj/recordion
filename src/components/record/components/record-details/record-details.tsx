@@ -7,7 +7,7 @@ import { RecordCard } from "../..";
 
 interface RecordDetailsProps {
   record: Record;
-  records: Array<Record>;
+  records: Map<Number, Record>;
 }
 
 function RecordDetails({ record, records }: RecordDetailsProps) {
@@ -64,14 +64,14 @@ function RecordDetails({ record, records }: RecordDetailsProps) {
             onClick={() => {
               setShowRecordCard(null);
               setRecordCardActionType(null);
-              const index = records.findIndex(record => record.id == id);
-              const newRecords = [...records];
-              newRecords.splice(index, 1);
-
-              dispatch({
-                type: SET_RECORDS,
-                payload: newRecords
-              });
+              const newRecords = new Map([...records]);
+              if (newRecords.delete(id)) {
+                console.log("in hereee", { newRecords });
+                dispatch({
+                  type: SET_RECORDS,
+                  payload: newRecords
+                });
+              }
             }}
           >
             Delete
