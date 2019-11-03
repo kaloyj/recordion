@@ -2,15 +2,20 @@ import React, { useContext, useState } from "react";
 import { Record } from "../../../../interfaces";
 import { RecordDispatch, RecordCardContext } from "../../../../context";
 import { SET_RECORDS, RecordContext } from "../../../../context/record-context";
-import RecordForm from "../record-form/record-form";
-import { RecordCard } from "../..";
 
 interface RecordDetailsProps {
   record: Record;
   records: Map<Number, Record>;
+  currentAction: string;
+  setCurrentAction: React.Dispatch<any>;
 }
 
-function RecordDetails({ record, records }: RecordDetailsProps) {
+function RecordDetails({
+  record,
+  records,
+  currentAction,
+  setCurrentAction
+}: RecordDetailsProps) {
   const {
     id,
     productName,
@@ -21,9 +26,8 @@ function RecordDetails({ record, records }: RecordDetailsProps) {
   const { dispatch } = useContext(RecordDispatch);
   const { idTracker } = useContext(RecordContext);
   const { showRecordCard, setShowRecordCard } = useContext(RecordCardContext);
-  const [isEditingRecord, setIsEditingRecord] = useState(false);
 
-  console.log({ showRecordCard });
+  console.log({ showRecordCard, id, currentAction });
   return (
     <div className="record-details-container flex-parent">
       <div className="product-image flex-1">
@@ -47,20 +51,22 @@ function RecordDetails({ record, records }: RecordDetailsProps) {
         <div className="product-actions flex-1">
           <button
             className="default"
-            onClick={() => {
-              console.log("clicked!");
-              setIsEditingRecord(true);
+            onClick={e => {
+              e.stopPropagation();
+              setShowRecordCard(id);
+              setCurrentAction("edit");
             }}
           >
             Edit
           </button>
           <button
             className="danger"
-            onClick={() => {
+            onClick={e => {
+              e.stopPropagation();
+              setCurrentAction(null);
               setShowRecordCard(null);
               const newRecords = new Map([...records]);
               if (newRecords.delete(id)) {
-                console.log("in hereee", { newRecords });
                 dispatch({
                   type: SET_RECORDS,
                   payload: newRecords
@@ -72,16 +78,6 @@ function RecordDetails({ record, records }: RecordDetailsProps) {
           </button>
         </div>
       </div>
-
-      {isEditingRecord && showRecordCard == id ? (
-        <RecordCard>
-          <RecordForm
-            records={records}
-            record={record}
-            idTracker={idTracker}
-          ></RecordForm>
-        </RecordCard>
-      ) : null}
     </div>
   );
 }

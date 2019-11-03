@@ -5,9 +5,16 @@ import { RecordCardContext } from "../../../../context";
 interface RecordCardProps {
   children: Object;
   isFirstCard?: boolean;
+  currentAction?: string;
+  setCurrentAction: React.Dispatch<any>;
 }
 
-const RecordCard = ({ children, isFirstCard }: RecordCardProps) => {
+const RecordCard = ({
+  children,
+  isFirstCard,
+  currentAction,
+  setCurrentAction
+}: RecordCardProps) => {
   const elRef = useRef(null);
   const { setShowRecordCard } = useContext(RecordCardContext);
   if (!elRef.current) {
@@ -25,7 +32,15 @@ const RecordCard = ({ children, isFirstCard }: RecordCardProps) => {
       {!isFirstCard ? (
         <button
           className="close-button"
-          onClick={() => setShowRecordCard(null)}
+          onClick={e => {
+            e.stopPropagation();
+            if (currentAction == "edit") {
+              setCurrentAction("view");
+            } else {
+              setCurrentAction(null);
+              setShowRecordCard(null);
+            }
+          }}
         >
           <span>x</span>
         </button>

@@ -25,9 +25,15 @@ interface RecordFormProps {
   records: Map<Number, Record>;
   record?: Record;
   idTracker: number;
+  setCurrentAction: React.Dispatch<any>;
 }
 
-function RecordForm({ records, record, idTracker }: RecordFormProps) {
+function RecordForm({
+  records,
+  record,
+  idTracker,
+  setCurrentAction
+}: RecordFormProps) {
   const { dispatch } = useContext(RecordDispatch);
   const { setShowRecordCard } = useContext(RecordCardContext);
   const isFirstCard = records && records.size == 0;
@@ -57,7 +63,13 @@ function RecordForm({ records, record, idTracker }: RecordFormProps) {
             payload: idTracker + 1
           });
           setSubmitting(false);
-          setShowRecordCard(null);
+          if (record && record.productName) {
+            setShowRecordCard(values.id);
+            setCurrentAction("view");
+          } else {
+            setShowRecordCard(null);
+            setCurrentAction(null);
+          }
         }, 400);
       }}
     >

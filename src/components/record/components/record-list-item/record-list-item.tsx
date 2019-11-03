@@ -3,14 +3,15 @@ import { RecordCardContext } from "../../../../context";
 import { Record } from "../../../../interfaces";
 
 interface RecordProps {
+  records: Map<Number, Record>;
   record: Record;
   selected: boolean;
+  currentAction: string;
+  setCurrentAction: React.Dispatch<any>;
 }
 
-function RecordListItem({
-  record: { id, productName, imageLink, productDate },
-  selected
-}: RecordProps) {
+function RecordListItem({ record, selected, setCurrentAction }: RecordProps) {
+  const { id, productName, imageLink, productDate } = record;
   const { setShowRecordCard } = useContext(RecordCardContext);
   return (
     <div
@@ -19,8 +20,10 @@ function RecordListItem({
           ? "record-list-item-container flex-parent selected"
           : "record-list-item-container flex-parent"
       }
-      onClick={() => {
+      onClick={e => {
+        e.stopPropagation();
         setShowRecordCard(id);
+        setCurrentAction("view");
       }}
     >
       <div className="product-image">
