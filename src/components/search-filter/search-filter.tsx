@@ -13,8 +13,6 @@ function SearchFilter() {
 
   const debouncedSearchKey = useDebounce(searchKey, 500);
 
-  console.log({ records });
-
   useEffect(() => {
     let results: Array<Record> = [];
     records.forEach(record => {
@@ -24,13 +22,9 @@ function SearchFilter() {
       }
     });
 
-    console.log("before", { results });
-
     results.sort((firstEl: Record, secondEl: Record): number => {
       return secondEl.productDate.getTime() - firstEl.productDate.getTime();
     });
-
-    console.log("after", { results });
 
     dispatch({
       type: SET_FILTERED_RECORDS,

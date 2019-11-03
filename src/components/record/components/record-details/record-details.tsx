@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { Record } from "../../../../interfaces";
 import { RecordDispatch, RecordCardContext } from "../../../../context";
 import { SET_RECORDS, RecordContext } from "../../../../context/record-context";
+import { motion } from "framer-motion";
 
 interface RecordDetailsProps {
   record: Record;
@@ -27,7 +28,6 @@ function RecordDetails({
   const { idTracker } = useContext(RecordContext);
   const { showRecordCard, setShowRecordCard } = useContext(RecordCardContext);
 
-  console.log({ showRecordCard, id, currentAction });
   return (
     <div className="record-details-container flex-parent">
       <div className="product-image flex-1">
@@ -49,7 +49,9 @@ function RecordDetails({
         </div>
 
         <div className="product-actions flex-1">
-          <button
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
             className="default"
             onClick={e => {
               e.stopPropagation();
@@ -58,8 +60,10 @@ function RecordDetails({
             }}
           >
             Edit
-          </button>
-          <button
+          </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
             className="danger"
             onClick={e => {
               e.stopPropagation();
@@ -75,7 +79,7 @@ function RecordDetails({
             }}
           >
             Delete
-          </button>
+          </motion.button>
         </div>
       </div>
     </div>

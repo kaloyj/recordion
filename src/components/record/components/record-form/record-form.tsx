@@ -123,7 +123,6 @@ function RecordForm({
                       null
                     }
                     onChange={(val: Date) => {
-                      console.log("vallll", { val });
                       setFieldValue("productDate", val);
                     }}
                     onChangeRaw={e => e.preventDefault()}

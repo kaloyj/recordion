@@ -3,17 +3,16 @@ import { RecordListItem, RecordCard, RecordForm } from "../record/";
 import AddButton from "../add-button/add-button";
 import { RecordCardContext, RecordContext } from "../../context";
 import RecordDetails from "../record/components/record-details/record-details";
+import { AnimatePresence } from "framer-motion";
 
 function Main() {
-  const { showRecordCard } = useContext(RecordCardContext);
+  const { showRecordCard, setShowRecordCard } = useContext(RecordCardContext);
   const [currentAction, setCurrentAction] = useState(null);
   const { records, filteredRecords, idTracker } = useContext(RecordContext);
 
-  console.log({ currentAction, showRecordCard });
-
   useEffect(() => {
     if (records && records.size == 0) {
-      setCurrentAction("use-form");
+      setCurrentAction("add");
     }
   }, [records]);
 
@@ -35,30 +34,37 @@ function Main() {
                 selected={selected}
               ></RecordListItem>
 
-              {selected && currentAction == "view" ? (
-                <RecordCard setCurrentAction={setCurrentAction}>
-                  <RecordDetails
-                    record={record}
-                    records={records}
+              <AnimatePresence>
+                {selected && currentAction == "view" ? (
+                  <RecordCard
+                    setCurrentAction={setCurrentAction}
                     currentAction={currentAction}
-                    setCurrentAction={setCurrentAction}
-                  ></RecordDetails>
-                </RecordCard>
-              ) : null}
+                  >
+                    <RecordDetails
+                      record={record}
+                      records={records}
+                      currentAction={currentAction}
+                      setCurrentAction={setCurrentAction}
+                    ></RecordDetails>
+                  </RecordCard>
+                ) : null}
+              </AnimatePresence>
 
-              {selected && currentAction == "edit" ? (
-                <RecordCard
-                  setCurrentAction={setCurrentAction}
-                  currentAction={currentAction}
-                >
-                  <RecordForm
-                    records={records}
-                    record={record}
-                    idTracker={idTracker}
+              <AnimatePresence>
+                {selected && currentAction == "edit" ? (
+                  <RecordCard
                     setCurrentAction={setCurrentAction}
-                  ></RecordForm>
-                </RecordCard>
-              ) : null}
+                    currentAction={currentAction}
+                  >
+                    <RecordForm
+                      records={records}
+                      record={record}
+                      idTracker={idTracker}
+                      setCurrentAction={setCurrentAction}
+                    ></RecordForm>
+                  </RecordCard>
+                ) : null}
+              </AnimatePresence>
             </div>
           );
         })
@@ -67,18 +73,21 @@ function Main() {
       )}
       <AddButton setCurrentAction={setCurrentAction}></AddButton>
 
-      {currentAction == "use-form" && showRecordCard == null ? (
-        <RecordCard
-          isFirstCard={records && records.size == 0}
-          setCurrentAction={setCurrentAction}
-        >
-          <RecordForm
-            records={records}
-            idTracker={idTracker}
+      <AnimatePresence>
+        {currentAction == "add" && showRecordCard == null ? (
+          <RecordCard
+            isFirstCard={records && records.size == 0}
             setCurrentAction={setCurrentAction}
-          ></RecordForm>
-        </RecordCard>
-      ) : null}
+            currentAction={currentAction}
+          >
+            <RecordForm
+              records={records}
+              idTracker={idTracker}
+              setCurrentAction={setCurrentAction}
+            ></RecordForm>
+          </RecordCard>
+        ) : null}
+      </AnimatePresence>
     </div>
   );
 }

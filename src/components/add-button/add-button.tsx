@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { RecordCardContext } from "../../context";
+import { motion } from "framer-motion";
 
 function AddButton({
   setCurrentAction
@@ -8,15 +9,17 @@ function AddButton({
 }) {
   const { setShowRecordCard } = useContext(RecordCardContext);
   return (
-    <button
+    <motion.button
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.9 }}
       className="add-button"
       onClick={() => {
         setShowRecordCard(null);
-        setCurrentAction("use-form");
+        setCurrentAction("add");
       }}
     >
       <span>+</span>
-    </button>
+    </motion.button>
   );
 }
 
