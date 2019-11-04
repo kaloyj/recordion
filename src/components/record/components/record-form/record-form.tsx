@@ -15,6 +15,7 @@ const RecordSchema = Yup.object().shape({
     .max(64, "Product Name must not exceed 64 characters.")
     .required("Product Name is required"),
   productDate: Yup.string().required("Product Date is required"),
+  imageLink: Yup.string().url("Invalid URL format (https://example.com)"),
   productDescription: Yup.string().max(
     240,
     "Product Description must not exceed 240 characters."
