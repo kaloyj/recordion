@@ -2,27 +2,19 @@ import React, { createContext, useReducer } from "react";
 import { Record } from "../interfaces";
 
 //actions
-export const SET_RECORDS = "SET_RECORDS";
 export const SET_FILTERED_RECORDS = "SET_FILTERED_RECORDS";
 export const SET_RECORDS_ID_TRACKER = "SET_RECORDS_ID_TRACKER";
 
 const initialState: {
-  records: Map<Number, Record>;
   filteredRecords: Array<Record>;
   idTracker: number;
 } = {
-  records: new Map(),
   filteredRecords: [],
   idTracker: 0
 };
 
 const reducer = (state: any, action: { type: string; payload: any }) => {
   switch (action.type) {
-    case SET_RECORDS:
-      return {
-        ...state,
-        records: action.payload
-      };
     case SET_FILTERED_RECORDS:
       return {
         ...state,

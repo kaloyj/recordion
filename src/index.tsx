@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import "./base-styles/index.scss";
 import "react-datepicker/dist/react-datepicker.css";
@@ -9,6 +9,13 @@ import { RecordCardContext, RecordContextProvider } from "./context";
 
 function App() {
   const [showRecordCard, setShowRecordCard] = useState(null);
+
+  useEffect(() => {
+    console.log("first mount");
+    localStorage.clear();
+  }, []);
+
+  console.log({ localStorage });
 
   return (
     <div className="main-container">

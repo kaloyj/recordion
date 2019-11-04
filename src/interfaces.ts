@@ -1,5 +1,5 @@
 export interface Record {
-  id: number;
+  id: string;
   productName: string;
   productDate: Date;
   imageLink: string;

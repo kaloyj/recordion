@@ -4,7 +4,6 @@ import { Record } from "../../../../interfaces";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface RecordProps {
-  records: Map<Number, Record>;
   record: Record;
   selected: boolean;
   currentAction: string;

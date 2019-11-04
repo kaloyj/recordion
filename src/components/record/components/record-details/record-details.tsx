@@ -1,19 +1,17 @@
 import React, { useContext, useState } from "react";
 import { Record } from "../../../../interfaces";
 import { RecordDispatch, RecordCardContext } from "../../../../context";
-import { SET_RECORDS, RecordContext } from "../../../../context/record-context";
+import { RecordContext } from "../../../../context/record-context";
 import { motion } from "framer-motion";
 
 interface RecordDetailsProps {
   record: Record;
-  records: Map<Number, Record>;
   currentAction: string;
   setCurrentAction: React.Dispatch<any>;
 }
 
 function RecordDetails({
   record,
-  records,
   currentAction,
   setCurrentAction
 }: RecordDetailsProps) {
@@ -69,13 +67,7 @@ function RecordDetails({
               e.stopPropagation();
               setCurrentAction(null);
               setShowRecordCard(null);
-              const newRecords = new Map([...records]);
-              if (newRecords.delete(id)) {
-                dispatch({
-                  type: SET_RECORDS,
-                  payload: newRecords
-                });
-              }
+              localStorage.removeItem(id);
             }}
           >
             Delete

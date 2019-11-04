@@ -8,17 +8,26 @@ import { Record } from "../../interfaces";
 
 function SearchFilter() {
   const { dispatch } = useContext(RecordDispatch);
-  const { records } = useContext(RecordContext);
   const [searchKey, setSearchKey] = useState("");
 
   const debouncedSearchKey = useDebounce(searchKey, 500);
 
   useEffect(() => {
     let results: Array<Record> = [];
-    records.forEach(record => {
-      if (record.productName.includes(debouncedSearchKey)) {
-        // do sorting here
-        results.push(record);
+    Object.keys(localStorage).forEach(recordKey => {
+      console.log("record key", { recordKey });
+      try {
+        const record = JSON.parse(localStorage.getItem(recordKey));
+        if (
+          record &&
+          Object.keys(record) &&
+          record.productName.includes(debouncedSearchKey)
+        ) {
+          // do sorting here
+          results.push(record);
+        }
+      } catch (e) {
+        return;
       }
     });
 
@@ -30,7 +39,7 @@ function SearchFilter() {
       type: SET_FILTERED_RECORDS,
       payload: results
     });
-  }, [debouncedSearchKey, records]);
+  }, [debouncedSearchKey, localStorage]);
 
   return (
     <div className="search-filter">
