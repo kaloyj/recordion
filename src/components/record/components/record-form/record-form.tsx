@@ -4,7 +4,10 @@ import DatePicker from "react-datepicker";
 import * as Yup from "yup";
 import { RecordCardContext, RecordDispatch } from "../../../../context";
 import { Record } from "../../../../interfaces";
-import { SET_RECORDS_ID_TRACKER } from "../../../../context/record-context";
+import {
+  SET_RECORDS,
+  SET_RECORDS_ID_TRACKER
+} from "../../../../context/record-context";
 
 const RecordSchema = Yup.object().shape({
   productName: Yup.string()
@@ -20,15 +23,21 @@ const RecordSchema = Yup.object().shape({
 });
 
 interface RecordFormProps {
+  records: Map<Number, Record>;
   record?: Record;
   idTracker: number;
   setCurrentAction: React.Dispatch<any>;
 }
 
-function RecordForm({ record, idTracker, setCurrentAction }: RecordFormProps) {
+function RecordForm({
+  records,
+  record,
+  idTracker,
+  setCurrentAction
+}: RecordFormProps) {
   const { dispatch } = useContext(RecordDispatch);
   const { setShowRecordCard } = useContext(RecordCardContext);
-  const isFirstCard = Object.keys(localStorage).length == 0;
+  const isFirstCard = records && records.size == 0;
 
   return (
     <Formik
@@ -46,7 +55,10 @@ function RecordForm({ record, idTracker, setCurrentAction }: RecordFormProps) {
       }
       onSubmit={(values, { setSubmitting }) => {
         setTimeout(() => {
-          localStorage.setItem(`${values.id}`, JSON.stringify(values));
+          dispatch({
+            type: SET_RECORDS,
+            payload: new Map([...records, [values.id, { ...values }]])
+          });
           dispatch({
             type: SET_RECORDS_ID_TRACKER,
             payload: idTracker + 1

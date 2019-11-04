@@ -8,13 +8,13 @@ import { AnimatePresence } from "framer-motion";
 function Main() {
   const { showRecordCard, setShowRecordCard } = useContext(RecordCardContext);
   const [currentAction, setCurrentAction] = useState(null);
-  const { filteredRecords, idTracker } = useContext(RecordContext);
+  const { records, filteredRecords, idTracker } = useContext(RecordContext);
 
   useEffect(() => {
-    if (Object.keys(localStorage).length == 0) {
+    if (records && records.size == 0) {
       setCurrentAction("add");
     }
-  }, [localStorage]);
+  }, [records]);
 
   console.log("XCURRR", { currentAction, showRecordCard });
 
@@ -27,6 +27,7 @@ function Main() {
             <div className="flex-1" key={record.id}>
               <RecordListItem
                 key={record.id}
+                records={records}
                 currentAction={currentAction}
                 setCurrentAction={setCurrentAction}
                 record={record}
@@ -41,6 +42,7 @@ function Main() {
                   >
                     <RecordDetails
                       record={record}
+                      records={records}
                       currentAction={currentAction}
                       setCurrentAction={setCurrentAction}
                     ></RecordDetails>
@@ -55,6 +57,7 @@ function Main() {
                     currentAction={currentAction}
                   >
                     <RecordForm
+                      records={records}
                       record={record}
                       idTracker={idTracker}
                       setCurrentAction={setCurrentAction}
@@ -73,11 +76,12 @@ function Main() {
       <AnimatePresence>
         {currentAction == "add" && showRecordCard == null ? (
           <RecordCard
-            isFirstCard={Object.keys(localStorage).length == 0}
+            isFirstCard={records && records.size == 0}
             setCurrentAction={setCurrentAction}
             currentAction={currentAction}
           >
             <RecordForm
+              records={records}
               idTracker={idTracker}
               setCurrentAction={setCurrentAction}
             ></RecordForm>
