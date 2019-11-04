@@ -1,12 +1,13 @@
 import React, { useContext, useState } from "react";
-import { Record } from "../../../../interfaces";
+import { Record, Records } from "../../../../interfaces";
 import { RecordDispatch, RecordCardContext } from "../../../../context";
 import { SET_RECORDS, RecordContext } from "../../../../context/record-context";
 import { motion } from "framer-motion";
+import update from "immutability-helper";
 
 interface RecordDetailsProps {
   record: Record;
-  records: Map<Number, Record>;
+  records: Records;
   currentAction: string;
   setCurrentAction: React.Dispatch<any>;
 }
@@ -41,7 +42,7 @@ function RecordDetails({
       <div className="product-content margined-flex-1">
         <h2 className="product-title flex-1">{productName}</h2>
         <div className="product-date flex-1 subtitle">
-          Created on <span>{productDate.toDateString()}</span>
+          Created on <span>{new Date(productDate).toDateString()}</span>
         </div>
 
         <div className="product-description flex-1">
@@ -69,13 +70,12 @@ function RecordDetails({
               e.stopPropagation();
               setCurrentAction(null);
               setShowRecordCard(null);
-              const newRecords = new Map([...records]);
-              if (newRecords.delete(id)) {
-                dispatch({
-                  type: SET_RECORDS,
-                  payload: newRecords
-                });
-              }
+              dispatch({
+                type: SET_RECORDS,
+                payload: update(records, {
+                  $unset: [id]
+                })
+              });
             }}
           >
             Delete

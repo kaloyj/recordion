@@ -14,16 +14,24 @@ function SearchFilter() {
   const debouncedSearchKey = useDebounce(searchKey, 500);
 
   useEffect(() => {
+    console.log("calling meee", { records, debouncedSearchKey });
     let results: Array<Record> = [];
-    records.forEach(record => {
-      if (record.productName.includes(debouncedSearchKey)) {
-        // do sorting here
-        results.push(record);
-      }
-    });
+    records &&
+      Object.keys(records).forEach((recordKey: string) => {
+        const record = records[recordKey];
+        if (record.productName.includes(debouncedSearchKey)) {
+          // do sorting here
+          results.push(record);
+        }
+      });
+
+    console.log("results", { results, records });
 
     results.sort((firstEl: Record, secondEl: Record): number => {
-      return secondEl.productDate.getTime() - firstEl.productDate.getTime();
+      return (
+        new Date(secondEl.productDate).getTime() -
+        new Date(firstEl.productDate).getTime()
+      );
     });
 
     dispatch({
@@ -31,6 +39,8 @@ function SearchFilter() {
       payload: results
     });
   }, [debouncedSearchKey, records]);
+
+  console.log("changign??", { records });
 
   return (
     <div className="search-filter">

@@ -3,7 +3,9 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import DatePicker from "react-datepicker";
 import * as Yup from "yup";
 import { RecordCardContext, RecordDispatch } from "../../../../context";
-import { Record } from "../../../../interfaces";
+import { Record, Records } from "../../../../interfaces";
+import update from "immutability-helper";
+
 import {
   SET_RECORDS,
   SET_RECORDS_ID_TRACKER
@@ -23,7 +25,7 @@ const RecordSchema = Yup.object().shape({
 });
 
 interface RecordFormProps {
-  records: Map<Number, Record>;
+  records: Records;
   record?: Record;
   idTracker: number;
   setCurrentAction: React.Dispatch<any>;
@@ -37,7 +39,7 @@ function RecordForm({
 }: RecordFormProps) {
   const { dispatch } = useContext(RecordDispatch);
   const { setShowRecordCard } = useContext(RecordCardContext);
-  const isFirstCard = records && records.size == 0;
+  const isFirstCard = records && Object.keys(records).length == 0;
 
   return (
     <Formik
@@ -57,7 +59,7 @@ function RecordForm({
         setTimeout(() => {
           dispatch({
             type: SET_RECORDS,
-            payload: new Map([...records, [values.id, { ...values }]])
+            payload: { ...records, [values.id]: values }
           });
           dispatch({
             type: SET_RECORDS_ID_TRACKER,

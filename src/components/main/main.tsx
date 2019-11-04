@@ -9,14 +9,21 @@ function Main() {
   const { showRecordCard, setShowRecordCard } = useContext(RecordCardContext);
   const [currentAction, setCurrentAction] = useState(null);
   const { records, filteredRecords, idTracker } = useContext(RecordContext);
+  const isRecordsEmpty = records && Object.keys(records).length == 0;
 
   useEffect(() => {
-    if (records && records.size == 0) {
+    if (isRecordsEmpty) {
       setCurrentAction("add");
     }
+  }, [isRecordsEmpty]);
+
+  useEffect(() => {
+    localStorage.setItem("records", JSON.stringify(records));
   }, [records]);
 
-  console.log("XCURRR", { currentAction, showRecordCard });
+  useEffect(() => {
+    localStorage.setItem("idTracker", `${idTracker}`);
+  }, [idTracker]);
 
   return (
     <div className="body-container">
@@ -27,7 +34,6 @@ function Main() {
             <div className="flex-1" key={record.id}>
               <RecordListItem
                 key={record.id}
-                records={records}
                 currentAction={currentAction}
                 setCurrentAction={setCurrentAction}
                 record={record}
@@ -76,7 +82,7 @@ function Main() {
       <AnimatePresence>
         {currentAction == "add" && showRecordCard == null ? (
           <RecordCard
-            isFirstCard={records && records.size == 0}
+            isFirstCard={isRecordsEmpty}
             setCurrentAction={setCurrentAction}
             currentAction={currentAction}
           >

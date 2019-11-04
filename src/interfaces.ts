@@ -5,3 +5,7 @@ export interface Record {
   imageLink: string;
   productDescription: string;
 }
+
+export interface Records {
+  [key: string]: Record;
+}

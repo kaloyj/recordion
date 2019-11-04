@@ -1,10 +1,9 @@
 import React, { useContext } from "react";
 import { RecordCardContext } from "../../../../context";
-import { Record } from "../../../../interfaces";
+import { Record, Records } from "../../../../interfaces";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface RecordProps {
-  records: Map<Number, Record>;
   record: Record;
   selected: boolean;
   currentAction: string;
@@ -65,7 +64,7 @@ function RecordListItem({ record, selected, setCurrentAction }: RecordProps) {
 
         <div className="data-preview">
           <h3>{productName}</h3>
-          <div className="subtitle">{productDate.toDateString()}</div>
+          <div className="subtitle">{new Date(productDate).toDateString()}</div>
         </div>
       </motion.div>
     </AnimatePresence>
