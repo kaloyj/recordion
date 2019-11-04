@@ -37,6 +37,7 @@ function SearchFilter() {
       <input
         type="text"
         value={searchKey}
+        aria-label="Find item by name"
         onChange={e => setSearchKey(e.target.value)}
         placeholder="Find item by name"
       />

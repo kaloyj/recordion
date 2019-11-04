@@ -102,7 +102,13 @@ function RecordForm({
                 <label htmlFor="productName" className="flex-1">
                   Product Name
                 </label>
-                <Field type="text" name="productName" className="flex-1" />
+                <Field
+                  type="text"
+                  id="productName"
+                  aria-describedby="productName"
+                  name="productName"
+                  className="flex-1"
+                />
                 <ErrorMessage
                   name="productName"
                   component="div"
@@ -126,6 +132,8 @@ function RecordForm({
                       setFieldValue("productDate", val);
                     }}
                     onChangeRaw={e => e.preventDefault()}
+                    id="productDate"
+                    aria-describedby="productDate"
                   />
                 </div>
 
@@ -140,7 +148,13 @@ function RecordForm({
                 <label htmlFor="imageLink" className="flex-1">
                   Image Link
                 </label>
-                <Field type="text" name="imageLink" className="flex-1" />
+                <Field
+                  type="text"
+                  name="imageLink"
+                  id="imageLink"
+                  aria-describedby="imageLink"
+                  className="flex-1"
+                />
                 <ErrorMessage
                   name="imageLink"
                   component="div"
@@ -155,6 +169,8 @@ function RecordForm({
                 <Field
                   component="textarea"
                   name="productDescription"
+                  id="productDescription"
+                  aria-describedby="productDescription"
                   className="flex-1"
                 />
                 <ErrorMessage

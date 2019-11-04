@@ -42,6 +42,13 @@ function RecordListItem({ record, selected, setCurrentAction }: RecordProps) {
           setShowRecordCard(id);
           setCurrentAction("view");
         }}
+        onKeyDown={e => {
+          e.stopPropagation();
+          setShowRecordCard(id);
+          setCurrentAction("view");
+        }}
+        tabIndex={0}
+        role="button"
       >
         <div className="product-image">
           {/* {imageLink ? (

@@ -25,7 +25,11 @@ const RecordCard = ({
   useEffect(() => {
     const modalRoot = document.getElementById("record-card");
     modalRoot.appendChild(elRef.current);
-    return () => modalRoot.removeChild(elRef.current);
+    elRef.current.focus();
+    return () => {
+      elRef.current.blur();
+      modalRoot.removeChild(elRef.current);
+    };
   }, []);
 
   const container = {
@@ -60,7 +64,7 @@ const RecordCard = ({
 
   return createPortal(
     <motion.div
-      key="record-card"
+      key={currentAction}
       className="record-card-container flex-parent"
       variants={container}
       initial="hidden"
