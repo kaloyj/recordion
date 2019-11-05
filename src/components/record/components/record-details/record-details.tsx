@@ -64,12 +64,14 @@ function RecordDetails({
           {productDescription ? productDescription : "No description set"}
         </div>
 
-        <div className="product-image-src flex-1">
-          <p className="flex-1">Image link: </p>
-          <a href={imageLink} target="_blank" rel="noopener noreferrer">
-            {imageLink}
-          </a>
-        </div>
+        {imageLink ? (
+          <div className="product-image-src flex-1">
+            <p className="flex-1">Image link: </p>
+            <a href={imageLink} target="_blank" rel="noopener noreferrer">
+              {imageLink}
+            </a>
+          </div>
+        ) : null}
 
         <div className="product-actions flex-1">
           <motion.button
