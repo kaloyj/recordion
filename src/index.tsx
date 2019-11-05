@@ -7,7 +7,7 @@ import Header from "./components/header/header";
 import Main from "./components/main/main";
 import { RecordCardContext, RecordContextProvider } from "./context";
 
-function App() {
+export default function App() {
   const [showRecordCard, setShowRecordCard] = useState(null);
 
   return (

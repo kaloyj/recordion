@@ -68,7 +68,7 @@ body {
 
   //desktop
   @media (min-width: 1200px) {
-    grid-template-columns: 3fr 6fr 3fr;
+    grid-template-columns: 3.5fr 6fr 2.5fr;
     grid-template-areas:
       "navbar navbar navbar"
       "header preview ."

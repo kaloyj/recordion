@@ -4,6 +4,8 @@ import { RecordDispatch, RecordCardContext } from "../../../../context";
 import { SET_RECORDS, RecordContext } from "../../../../context/record-context";
 import { motion } from "framer-motion";
 import update from "immutability-helper";
+import SVGInline from "react-svg-inline";
+import PhotoPlaceholder from "../record-form/photo-placeholder.svg";
 
 interface RecordDetailsProps {
   record: Record;
@@ -28,15 +30,28 @@ function RecordDetails({
   const { dispatch } = useContext(RecordDispatch);
   const { idTracker } = useContext(RecordContext);
   const { showRecordCard, setShowRecordCard } = useContext(RecordCardContext);
+  const [isValid, setIsValid] = useState(false);
 
   return (
     <div className="record-details-container flex-parent">
       <div className="product-image flex-1">
         {imageLink ? (
-          <img src={imageLink} alt="product image"></img>
-        ) : (
-          <div className="image-placeholder flex-parent"></div>
-        )}
+          <img
+            src={imageLink}
+            onError={() => setIsValid(false)}
+            onLoad={() => setIsValid(true)}
+            style={{ display: isValid ? "inline-block" : "none" }}
+            alt="product image"
+          ></img>
+        ) : null}
+
+        {!isValid ? (
+          <div className="image-placeholder flex-parent">
+            <span>
+              <SVGInline height="40px" width="40px" svg={PhotoPlaceholder} />
+            </span>
+          </div>
+        ) : null}
       </div>
 
       <div className="product-content margined-flex-1">
@@ -47,6 +62,13 @@ function RecordDetails({
 
         <div className="product-description flex-1">
           {productDescription ? productDescription : "No description set"}
+        </div>
+
+        <div className="product-image-src flex-1">
+          <p className="flex-1">Image link: </p>
+          <a href={imageLink} target="_blank" rel="noopener noreferrer">
+            {imageLink}
+          </a>
         </div>
 
         <div className="product-actions flex-1">

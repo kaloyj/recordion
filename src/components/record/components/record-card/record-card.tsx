@@ -43,10 +43,8 @@ const RecordCard = ({
       zIndex: 1,
       opacity: 1,
       transition: {
-        type: "spring",
-        stiffness: 300,
-        damping: 200
-        // delay: 1
+        duration: 0.4,
+        delay: 0.39
       }
     },
     exit: {
@@ -54,10 +52,7 @@ const RecordCard = ({
       zIndex: 0,
       opacity: 0,
       transition: {
-        type: "spring",
-        stiffness: 300,
-        damping: 200,
-        duration: 0.1
+        duration: 0.4
       }
     }
   };
@@ -69,9 +64,7 @@ const RecordCard = ({
       variants={container}
       initial="hidden"
       animate="visible"
-      exit={
-        currentAction == "view" || currentAction == "add" ? "exit" : "false"
-      } // add exit animation if no pending action
+      exit="exit"
     >
       {!isFirstCard ? (
         <button

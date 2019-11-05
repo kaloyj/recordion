@@ -14,18 +14,19 @@ function SearchFilter() {
   const debouncedSearchKey = useDebounce(searchKey, 500);
 
   useEffect(() => {
-    console.log("calling meee", { records, debouncedSearchKey });
     let results: Array<Record> = [];
     records &&
       Object.keys(records).forEach((recordKey: string) => {
         const record = records[recordKey];
-        if (record.productName.includes(debouncedSearchKey)) {
+        if (
+          record.productName
+            .toLowerCase()
+            .includes(debouncedSearchKey.toLowerCase())
+        ) {
           // do sorting here
           results.push(record);
         }
       });
-
-    console.log("results", { results, records });
 
     results.sort((firstEl: Record, secondEl: Record): number => {
       return (
@@ -40,8 +41,6 @@ function SearchFilter() {
     });
   }, [debouncedSearchKey, records]);
 
-  console.log("changign??", { records });
-
   return (
     <div className="search-filter">
       <input
@@ -52,7 +51,7 @@ function SearchFilter() {
         placeholder="Find item by name"
       />
       <div className="search-icon">
-        <SVGInline height="16px" width="16px" svg={MagnifyingGlass} />
+        <SVGInline height="16px" width="16px" svg={`${MagnifyingGlass}`} />
       </div>
     </div>
   );

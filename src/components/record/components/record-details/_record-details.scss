@@ -18,6 +18,14 @@
   .image-placeholder {
     height: 250px;
     background-color: $primary-color;
+    justify-content: center;
+    align-content: center;
+
+    span {
+      flex: 0 0 30%;
+      text-align: center;
+      color: silver;
+    }
   }
 
   .product-content {
@@ -29,6 +37,15 @@
     margin: 8% 0;
     font-size: $font-size-base;
     font-weight: 300;
+  }
+
+  .product-image-src {
+    font-size: $secondary-font-size;
+    margin-bottom: 4%;
+    p {
+      margin: 0;
+      padding: 0;
+    }
   }
 
   .product-date {

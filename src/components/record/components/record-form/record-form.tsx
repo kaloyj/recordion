@@ -1,10 +1,11 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import DatePicker from "react-datepicker";
 import * as Yup from "yup";
 import { RecordCardContext, RecordDispatch } from "../../../../context";
 import { Record, Records } from "../../../../interfaces";
-import update from "immutability-helper";
+import SVGInline from "react-svg-inline";
+import PhotoPlaceholder from "./photo-placeholder.svg";
 
 import {
   SET_RECORDS,
@@ -39,6 +40,7 @@ function RecordForm({
 }: RecordFormProps) {
   const { dispatch } = useContext(RecordDispatch);
   const { setShowRecordCard } = useContext(RecordCardContext);
+  const [isValid, setIsValid] = useState(false);
   const isFirstCard = records && Object.keys(records).length == 0;
 
   return (
@@ -79,17 +81,21 @@ function RecordForm({
       {({ isSubmitting, isValidating, values, setFieldValue }) => (
         <div className="record-form-container flex-parent">
           <div className="product-image-preview flex-1">
-            {values && values.imageLink ? (
+            {values.imageLink ? (
               <img
                 src={values.imageLink}
-                onError={e => {
-                  // do something here to validate URL
-                }}
+                onError={() => setIsValid(false)}
+                onLoad={() => setIsValid(true)}
+                style={{ display: isValid ? "inline-block" : "none" }}
                 alt="product image"
               ></img>
-            ) : (
-              <span>Image Link Preview</span>
-            )}
+            ) : null}
+
+            {!isValid ? (
+              <span>
+                <SVGInline height="40px" width="40px" svg={PhotoPlaceholder} />
+              </span>
+            ) : null}
           </div>
 
           <div className="product-form-body margined-flex-1">

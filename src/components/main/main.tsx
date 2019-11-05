@@ -28,55 +28,58 @@ function Main() {
   return (
     <div className="body-container">
       {filteredRecords && filteredRecords.length ? (
-        filteredRecords.map(record => {
-          const selected = showRecordCard == record.id;
-          return (
-            <div className="flex-1" key={record.id}>
-              <RecordListItem
-                key={record.id}
-                currentAction={currentAction}
-                setCurrentAction={setCurrentAction}
-                record={record}
-                selected={selected}
-              ></RecordListItem>
+        <AnimatePresence>
+          {filteredRecords.map(record => {
+            const selected = showRecordCard == record.id;
+            return (
+              <div className="flex-1" key={record.id}>
+                <RecordListItem
+                  key={record.id}
+                  currentAction={currentAction}
+                  setCurrentAction={setCurrentAction}
+                  record={record}
+                  selected={selected}
+                ></RecordListItem>
 
-              <AnimatePresence>
-                {selected && currentAction == "view" ? (
-                  <RecordCard
-                    setCurrentAction={setCurrentAction}
-                    currentAction={currentAction}
-                  >
-                    <RecordDetails
-                      record={record}
-                      records={records}
+                <AnimatePresence>
+                  {selected && currentAction == "view" ? (
+                    <RecordCard
+                      setCurrentAction={setCurrentAction}
                       currentAction={currentAction}
-                      setCurrentAction={setCurrentAction}
-                    ></RecordDetails>
-                  </RecordCard>
-                ) : null}
-              </AnimatePresence>
+                    >
+                      <RecordDetails
+                        record={record}
+                        records={records}
+                        currentAction={currentAction}
+                        setCurrentAction={setCurrentAction}
+                      ></RecordDetails>
+                    </RecordCard>
+                  ) : null}
+                </AnimatePresence>
 
-              <AnimatePresence>
-                {selected && currentAction == "edit" ? (
-                  <RecordCard
-                    setCurrentAction={setCurrentAction}
-                    currentAction={currentAction}
-                  >
-                    <RecordForm
-                      records={records}
-                      record={record}
-                      idTracker={idTracker}
+                <AnimatePresence>
+                  {selected && currentAction == "edit" ? (
+                    <RecordCard
                       setCurrentAction={setCurrentAction}
-                    ></RecordForm>
-                  </RecordCard>
-                ) : null}
-              </AnimatePresence>
-            </div>
-          );
-        })
+                      currentAction={currentAction}
+                    >
+                      <RecordForm
+                        records={records}
+                        record={record}
+                        idTracker={idTracker}
+                        setCurrentAction={setCurrentAction}
+                      ></RecordForm>
+                    </RecordCard>
+                  ) : null}
+                </AnimatePresence>
+              </div>
+            );
+          })}
+        </AnimatePresence>
       ) : (
         <div>No items found.</div>
       )}
+
       <AddButton setCurrentAction={setCurrentAction}></AddButton>
 
       <AnimatePresence>
