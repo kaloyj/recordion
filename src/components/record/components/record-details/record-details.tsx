@@ -57,7 +57,7 @@ function RecordDetails({
       <div className="product-content margined-flex-1">
         <h2 className="product-title flex-1">{productName}</h2>
         <div className="product-date flex-1 subtitle">
-          Created on <span>{new Date(productDate).toDateString()}</span>
+          Product Date: <span>{new Date(productDate).toDateString()}</span>
         </div>
 
         <div className="product-description flex-1">

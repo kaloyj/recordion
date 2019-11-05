@@ -32,7 +32,7 @@ function Main() {
           {filteredRecords.map(record => {
             const selected = showRecordCard == record.id;
             return (
-              <div className="flex-1" key={record.id}>
+              <div className="filtered-records flex-1" key={record.id}>
                 <RecordListItem
                   key={record.id}
                   currentAction={currentAction}
